@@ -9,6 +9,8 @@ function saveProductInfo($conn)
     $descricao = $_POST['descricao'];
 
     $produtoId = null;
+    $fotoCaminho = ''; // Variável para armazenar o caminho das imagens
+
     if (!empty($_FILES['fotos']['name'][0])) {
         $fotoDir = 'E:/www/produto/';
         $produtoDir = $fotoDir . $sku . '/';
@@ -26,7 +28,7 @@ function saveProductInfo($conn)
     $stmt->bindValue(':nome', $nome);
     $stmt->bindValue(':sku', $sku);
     $stmt->bindValue(':descricao', $descricao);
-    $stmt->bindValue(':foto', $fotoCaminho ?? '');
+    $stmt->bindValue(':foto', $fotoCaminho); // Salva o caminho da imagem no banco de dados
 
     if ($stmt->execute()) {
         $produtoId = $conn->lastInsertId();
